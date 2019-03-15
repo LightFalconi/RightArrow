@@ -1,0 +1,115 @@
+// Milo Falconi Caceda
+
+// This program prints out a left or right arrow based on the user's choice of length and height
+
+import java.util.*;
+
+public class RightArrow extends ShapeBase
+{
+	Scanner k = new Scanner(System.in);
+	private int tailLength;
+	private int width;
+	
+	public RightArrow()
+	{
+		super(); //initializes the offset in the constructor in ShapeBase
+		tailLength = 0;
+		width = 0;		
+	}
+	public RightArrow(int theOffset, int tailSize, int theWidth)
+	{
+		super(theOffset); //sets the offset to equal the number that the user entered 
+		tailLength = tailSize;
+		width = theWidth;
+	}
+	public void set(int newHeight, int newWidth)
+	{
+		tailLength = newHeight;
+		width = newWidth;
+	}
+	
+	public int GetTail()
+	{
+		int TL;
+		System.out.println("Enter the Length of the Tail of the Arrow: (Has to be greater than 0)");
+		TL = k.nextInt();
+		System.out.println("You entered: " + TL);
+		if (TL <= 0)
+		{
+			System.out.println("Please enter a number greater than 0");	
+			GetTail();
+		}
+		else
+			tailLength = TL;
+		return tailLength;
+	}
+	
+	public int GetWidth()
+	{
+		int width2;
+		Scanner k = new Scanner(System.in);
+		System.out.println("Enter the Width of the arrow head: (Number MUST be odd)");
+		width2 = k.nextInt();
+		System.out.println("You entered: " + width2);
+		if (width2 > 3 && width2 % 2 != 0)
+		{
+			width = width2;
+		}
+		else
+		{
+			System.out.println("Please enter a valid number");
+			GetWidth();
+		}
+		return width;
+	}
+			
+	public void drawHere()
+	{
+		System.out.println("Right Arrow with Tail: " + tailLength + " and width: " + width);
+		topArrowHead();
+		ArrowTail();
+		bottomArrowHead();
+	}
+	public void topArrowHead()
+	{
+		skipSpaces(getOffset());
+		System.out.println("*");
+		for (int count = 0; count < (width-2)/2; count ++)
+		{
+			skipSpaces(getOffset());
+			System.out.print("*");
+			skipSpaces(count +1);
+			System.out.println("*");			
+		}
+	}	
+	public void ArrowTail()
+	{
+		System.out.print(" ");
+		for(int count = 0; count < tailLength; count++)
+		{
+			System.out.print("*");
+		}
+		skipSpaces(width/2);
+		System.out.print("*");
+	}
+	
+	public void bottomArrowHead()
+	{
+		System.out.println("");
+		for (int count = (width-2)/2; count > 0; count --)
+		{
+			skipSpaces(getOffset());
+			System.out.print("*");
+			skipSpaces(count);
+			System.out.println("*");			
+		}
+		skipSpaces(getOffset());
+		System.out.println("*");		
+	}
+	private void skipSpaces(int number)
+	{
+		for (int count = 0; count < number; count++)
+			System.out.print(" ");
+	}	
+}
+
